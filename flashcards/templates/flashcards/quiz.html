@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Flashcard Quiz</title>
+</head>
+<body>
+    <h1>Flashcard Quiz</h1>
+
+    {% if card %}
+        <form method="post">
+            {% csrf_token %}
+            <h2>{{ card.question }}</h2>
+
+            {% for option in options %}
+                <div>
+                    <input type="radio" name="option" value="{{ option }}" required>
+                    <label>{{ option }}</label>
+                </div>
+            {% endfor %}
+
+            <!-- Campo oculto con la respuesta correcta -->
+            <input type="hidden" name="correct_answer" value="{{ card.correct_answer }}">
+
+            <button type="submit">Enviar</button>
+        </form>
+    {% else %}
+        <p>No hay preguntas disponibles.</p>
+    {% endif %}
+</body>
+</html>
