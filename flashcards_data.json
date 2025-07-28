@@ -1,0 +1,18 @@
+[
+  {
+    "category": "Geografía",
+    "question": "¿Cuál es la capital de Noruega?",
+    "correct_answer": "Oslo",
+    "wrong_answer_1": "Estocolmo",
+    "wrong_answer_2": "Tolusa",
+    "wrong_answer_3": "Menfis"
+  },
+  {
+    "category": "Matemática",
+    "question": "¿Cuánto es 5 x 6 + 3?",
+    "correct_answer": "33",
+    "wrong_answer_1": "45",
+    "wrong_answer_2": "30",
+    "wrong_answer_3": "48"
+  }
+]
