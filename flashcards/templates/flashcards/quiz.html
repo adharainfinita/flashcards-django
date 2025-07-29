@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html>
-<head>
+<head charset="UTF-8">
     <title>Flashcard Quiz</title>
     <style>
         body {
@@ -46,37 +46,47 @@
             text-align: center;
             color: #777;
         }
+        .progress-container {
+            width: 100%;
+            background: #ddd;
+            height: 20px;
+            margin-bottom: 20px;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        .progress-bar {
+            background: #4caf50;
+            height: 100%;
+            transition: width 0.3s;
+        }
     </style>
 </head>
 <body>
     <h1>Flashcard Quiz</h1>
+    <div class="progress-container">
+        <div class="progress-bar" style="width: {{ progress_percent }}%;"></div>
+    </div>
+    <p>Preguntas respondidas: {{ answered }} / {{ total_questions }}</p>
+    <p>Correctas: {{ correct }}</p>
 
-    {% if card %}
-    <p><strong>Progreso:</strong> {{ correct }}/{{ answered }} respuestas correctas</p>
+        {% if card %}
         <form method="post">
             {% csrf_token %}
             <h2>{{ card.question }}</h2>
-
             {% for option in options %}
-                <div>
+                <label>
                     <input type="radio" name="option" value="{{ option }}" required>
-                    <label>{{ option }}</label>
-                </div>
+                    {{ option }}
+                </label><br>    
             {% endfor %}
-
             <!-- Campo oculto con la respuesta correcta -->
             <input type="hidden" name="correct_answer" value="{{ card.correct_answer }}">
-
             <button type="submit">Enviar</button>
         </form>
     {% else %}
-        <h2>¡Quiz completado!</h2>
-    <p>Respondiste correctamente {{ correct }} de {{ answered }} preguntas.</p>
+        <h2>¡Completaste todas las preguntas!</h2>
+        <p>Puntaje final: {{ correct }} de {{ total_questions }}</p>
+        <a href="{% url 'reset_quiz' %}">Reiniciar Quiz</a>
     {% endif %}
-
-    <form method="post" action="{% url 'reset_quiz' %}">
-    {% csrf_token %}
-    <button type="submit">Reiniciar</button>
-</form>
 </body>
 </html>
